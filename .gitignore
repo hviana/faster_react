@@ -1,0 +1,7 @@
+deno
+deno.exe
+ngrok
+ngrok.exe
+*.sqlite*
+node_modules
+deno.lock

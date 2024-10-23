@@ -1,0 +1,14 @@
+{
+  "serverOptions": {
+    "port": 8080
+  },
+  "framework": {
+    "kv": {
+      "pathOrUrl": "",
+      "DENO_KV_ACCESS_TOKEN": ""
+    },
+    "dev": true,
+    "serverless": false,
+    "title": "SaaS Example"
+  }
+}
