@@ -32,13 +32,13 @@ jobs:
           deno-version: ${{ matrix.deno }}
 
       - name: Verify formatting
-        if: startsWith(matrix.os, 'ubuntu') && false
+        if: startsWith(matrix.os, 'ubuntu')
         run: deno fmt --check
 
       - name: Run linter
-        if: startsWith(matrix.os, 'ubuntu')  && false
+        if: startsWith(matrix.os, 'ubuntu')
         run: deno lint
 
       - name: Spell-check
-        if: startsWith(matrix.os, 'ubuntu') && false
+        if: startsWith(matrix.os, 'ubuntu')
         uses: crate-ci/typos@master

@@ -1,6 +1,6 @@
-import React from "react";
 import { getJSON, route } from "@helpers/frontend/route.ts";
 import { returnHello } from "../files/general.ts";
+import type { JSONObject } from "@helpers/types.ts";
 
 const DashboardPage = (props: any) => {
   const { user } = props;
@@ -18,7 +18,7 @@ const DashboardPage = (props: any) => {
             const apiRes = await getJSON({
               path: "/user/logout",
               content: { user: user },
-            });
+            }) as JSONObject;
             console.log(apiRes);
             if (apiRes.logout) {
               await route({ path: "/" })();

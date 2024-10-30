@@ -1,4 +1,3 @@
-import React from "react";
 import { route } from "@helpers/frontend/route.ts";
 
 const HomePage = (props: any) => {

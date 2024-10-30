@@ -1,14 +1,15 @@
 import Builder from "builder";
-const options: any = (await import("./options.json", {
+import type { JSONObject } from "@helpers/types.ts";
+const options: JSONObject = (await import("./options.json", {
   with: { type: "json" },
 })).default;
-const denoJson: any = (await import("./deno.json", {
+const denoJson: JSONObject = (await import("./deno.json", {
   with: { type: "json" },
 })).default;
 
-async function importFromRoot(path: string) {
+const importFromRoot = async (path: string) => {
   return await import(`./${path}`);
-}
+};
 const builder = new Builder(options, denoJson, importFromRoot);
 const server = builder.server;
 export { options, server };

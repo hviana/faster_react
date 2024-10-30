@@ -6,8 +6,8 @@ Different from frontend/components, the scripts here are not automatically deliv
 They need to be imported by the frontend/components. The intention here is to group common functions/objects for React Functions/Components, such as form field validations.
 You can also have frontend/files in common for other frontend/files.
  */
-function returnHello() {
+const returnHello = () => {
   return "Hello";
-}
+};
 
 export { returnHello };
