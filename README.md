@@ -201,10 +201,10 @@ More details: [deno_kv_fs](https://github.com/hviana/deno_kv_fs)
     > **Important:** If you want the page to be processed, **do not** consume
     > the `body` of `ctx.req`, or it will cause an error in the framework.
 
-  - **After Processing (`after?: (props: JSONObject) => void | Promise<void>`):**
-    Function receives the `props` that will be passed to the component. Add
-    backend data to these `props`, such as data from a database. Can be
-    asynchronous.
+  - **After Processing
+    (`after?: (props: JSONObject) => void | Promise<void>`):** Function receives
+    the `props` that will be passed to the component. Add backend data to these
+    `props`, such as data from a database. Can be asynchronous.
     > **Note:** Only use props data in JSON-like representation, or hydration
     > will fail.
 
