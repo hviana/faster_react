@@ -1,6 +1,6 @@
 import { getJSON, route } from "@helpers/frontend/route.ts";
 import { returnHello } from "../files/general.ts";
-import type { JSONObject } from "@helpers/types.ts";
+import type { JSONObject, JSONValue } from "@helpers/types.ts";
 
 const DashboardPage = (props: any) => {
   const { user } = props;
