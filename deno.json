@@ -25,7 +25,7 @@
     "htm/react": "https://esm.sh/htm@3.1.1/react",
     "walk": "jsr:@std/fs@1.0.3/walk",
     "path": "jsr:@std/path@1.0.6",
-    "faster": "jsr:@hviana/faster@1.0.1",
+    "faster": "jsr:@hviana/faster@1.0.2",
     "esbuild": "https://deno.land/x/esbuild@v0.24.0/mod.js",
     "esbuild-portable": "https://deno.land/x/esbuild@v0.24.0/wasm.js",
     "esbuild-deno-loader": "jsr:@luca/esbuild-deno-loader@0.11.0",
