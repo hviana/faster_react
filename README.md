@@ -422,6 +422,8 @@ import {/* your imports */} from "@helpers/backend/types.ts";
 // Faster is an optimized middleware server with an incredibly small codebase (~300 lines), built on top of Deno's native HTTP APIs with no dependencies. It includes useful middlewares: log file, serve static, CORS, session, rate limit, token, body parsers, redirect, proxy, and handle upload. Fully compatible with Deno Deploy. Examples are available in the README. Faster's ideology: all you need is an optimized middleware manager; all other functionality is middleware. See more at: https://deno.land/x/faster
 
 import {/* your imports */} from "faster";
+import {/* your imports */} from "deno_kv_fs";
+import {/* your imports */} from "jose"; //manage tokens
 
 import { options, server } from "@core"; // Useful for accessing the server instance.
 ```
