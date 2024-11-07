@@ -12,9 +12,10 @@
 
 ## 🌟 Introduction
 
-`faster_react` is a framework that **uses its own RSC engine, combining SSR and
-CSR**, and automatically generates routes for React components. To utilize this,
-you must use the routes helper provided by the framework
+`faster_react` is a tiny Full-Stack React framework. He avoids Overengineering.
+This framework **uses its own RSC engine, combining SSR and CSR**, and
+automatically generates routes for React components. To utilize this, you must
+use the routes helper provided by the framework
 ([React Router](#-react-router)). The framework's configuration file is located
 at `options.json`.
 
@@ -40,9 +41,10 @@ Focus solely on development! This framework handles:
 
 ### ⚡ **About Faster**
 
-Faster is an optimized middleware server with an incredibly small codebase (~300
-lines), built on top of Deno's native HTTP APIs with no dependencies. It
-includes a collection of useful middlewares:
+This framework uses a middleware library called Faster. Faster is an optimized
+middleware server with an incredibly small codebase (~300 lines), built on top
+of native HTTP APIs with no dependencies. It includes a collection of useful
+middlewares:
 
 - 📄 **Log file**
 - 🗂️ **Serve static**
