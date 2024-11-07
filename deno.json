@@ -25,7 +25,7 @@
     "htm/react": "https://esm.sh/htm@3.1.1/react",
     "walk": "jsr:@std/fs@1.0.3/walk",
     "path": "jsr:@std/path@1.0.6",
-    "faster": "jsr:@hviana/faster@1.0.7",
+    "faster": "jsr:@hviana/faster@1.0.8",
     "deno_kv_fs": "jsr:@hviana/faster@1.0.6/deno-kv-fs",
     "jose": "jsr:@hviana/faster@1.0.6/jose",
     "esbuild": "https://deno.land/x/esbuild@v0.24.0/mod.js",
