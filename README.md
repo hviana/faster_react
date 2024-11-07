@@ -57,10 +57,10 @@ middlewares:
 - 🔌 **Proxy**
 - 📤 **Handle upload**
 
-Fully compatible with Deno Deploy. Examples of all resources are available in
-the [README](https://github.com/hviana/faster). Faster's ideology is simple: all
-you need is an optimized middleware manager; all other functionality is
-middleware.
+Fully compatible with Deno Deploy and other enviroments. Examples of all
+resources are available in the [README](https://github.com/hviana/faster).
+Faster's ideology is simple: all you need is an optimized middleware manager;
+all other functionality is middleware.
 
 ---
 
