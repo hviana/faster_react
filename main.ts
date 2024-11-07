@@ -13,3 +13,9 @@ const importFromRoot = async (path: string) => {
 const builder = new Builder(options, denoJson, importFromRoot);
 const server = builder.server;
 export { options, server };
+
+export default {
+  async fetch(_req: Request) {
+    return await server.serveHandler(_req);
+  },
+};

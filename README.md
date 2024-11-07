@@ -447,8 +447,16 @@ Customize and configure the server in `options.json`.
 
 Execute the command:
 
+Development:
+
 ```bash
 deno task serve
+```
+
+Production:
+
+```bash
+deno serve main.ts #Add your permissions, port, certificate, etc. see: https://docs.deno.com/runtime/reference/cli/serve
 ```
 
 ---

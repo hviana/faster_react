@@ -1,7 +1,4 @@
 {
-  "serverOptions": {
-    "port": 8080
-  },
   "framework": {
     "kv": {
       "pathOrUrl": "",
