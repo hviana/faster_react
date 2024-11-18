@@ -3,7 +3,6 @@ import { type Context, type NextFunc } from "faster";
 const indexBackendComponent: BackendComponent = {
   before: [
     async (ctx: Context, next: NextFunc) => {
-      throw new Error("u is invalid");
       if (ctx.req.method !== "GET") {
         throw new Error("The home page only accepts the GET method");
       }
