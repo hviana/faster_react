@@ -1,7 +1,7 @@
 {
   "framework": {
     "kv": {
-      "pathOrUrl": "",
+      "pathOrUrl": "./db.sqlite",
       "DENO_KV_ACCESS_TOKEN": ""
     },
     "dev": true,
