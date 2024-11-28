@@ -2,9 +2,8 @@ import { useState } from "react";
 import { route } from "@helpers/frontend/route.ts";
 
 import ErrorMessage from "./parts/error.tsx";
+import SuccessMessage from "./parts/success.tsx";
 import Loading from "./parts/loading.tsx";
-
-import Counter from "./parts/counter.tsx";
 
 const Register = (props: any) => {
   const {
@@ -15,6 +14,7 @@ const Register = (props: any) => {
     error,
     message,
     update,
+    updated,
     token,
   } = props;
   const [loading, setLoading] = useState(false);
@@ -69,7 +69,7 @@ const Register = (props: any) => {
     return (
       <div
         className={update
-          ? ""
+          ? "flex flex-col items-center"
           : "min-h-screen flex items-center justify-center bg-gradient-to-r from-green-400 to-blue-500"}
       >
         {!update && <script src="https://cdn.tailwindcss.com"></script>}
@@ -175,6 +175,8 @@ const Register = (props: any) => {
             {loading && Loading({ loading: true })}
             {(error || frontendFomError) &&
               ErrorMessage({ message: error || frontendFomError })}
+            {updated && message &&
+              SuccessMessage({ message: message })}
             {update && (
               <button
                 type="submit"

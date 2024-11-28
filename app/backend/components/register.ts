@@ -24,29 +24,46 @@ const signupBackendComponent: BackendComponent = {
       }
     }
 
+    props.updated = false;
     props.uploadedAvatar = avatarUrl || "";
     if (name && email) {
+      if (!validateEmail(email as string)) {
+        props.error = "Invalid email";
+      }
+      if (!name) {
+        props.error = "Fill in the name";
+      }
       const exists = (await Server.kv.get(["users", email])).value;
       if (update) {
+        if (password) {
+          props.updated = true;
+        }
+        if (name != exists.name) {
+          props.updated = true;
+        }
+        if (email != exists.email) {
+          props.updated = true;
+        }
+        if (avatarUrl != exists.avatarUrl) {
+          props.updated = true;
+        }
         if (!password) {
           password = exists.password;
         } else {
+          if (checkPasswordStrength(password as string) < 1) {
+            props.error = "Very weak password";
+          }
           password = await pbkdf2(password as string);
+          props.password = "";
         }
       } else {
         if (exists) {
           props.error = "User already exists";
         }
         if (checkPasswordStrength(password as string) < 1) {
-          props.error = "Error: very weak password";
+          props.error = "Very weak password";
         }
         password = await pbkdf2(password as string);
-      }
-      if (!validateEmail(email as string)) {
-        props.error = "Invalid email";
-      }
-      if (!name) {
-        props.error = "Fill in the name";
       }
       if (!props.error) {
         try {
@@ -63,8 +80,14 @@ const signupBackendComponent: BackendComponent = {
         // Simulate user registration logic
         // In a real application, save the user to a database
         if (!props.error) {
-          props.message =
-            `Thank you for signing up, ${name}! Please check your email (${email}) to verify your account.`;
+          if (props.updated) {
+            props.message = "Updated successfully, log in again to view.";
+          } else {
+            props.message =
+              `Thank you for signing up, ${name}! Please check your email (${email}) to verify your account.`;
+          }
+        } else {
+          props.message = "";
         }
       }
     }
