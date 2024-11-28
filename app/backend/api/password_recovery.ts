@@ -17,8 +17,10 @@ const recoveryRoutes = async (server: Server) => {
         await Server.kv.set(["recovery_codes", recCode], data.email, {
           expireIn: oneHour,
         });
+        //TODO send recCode to email
+        console.log(`User ${data.email}, recovery code: ${recCode}`);
       }
-      //TODO send recCode to email
+
       ctx.res.body = {
         success: `Check your email to receive the password recovery code.`,
       };
@@ -39,6 +41,7 @@ const recoveryRoutes = async (server: Server) => {
           .toString(); //random 6 digits
         user.password = await pbkdf2(random6Digits);
         await Server.kv.set(["users", existingEmail], user);
+        await Server.kv.delete(["recovery_codes", ctx.params.code]);
         ctx.res.body = {
           success:
             `Your temporary password is ${random6Digits}, change it to a secure password as soon as possible.`,
