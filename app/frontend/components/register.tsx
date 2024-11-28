@@ -150,7 +150,11 @@ const Register = (props: any) => {
               </label>
               <input type="hidden" name="token" defaultValue={token} />
               <input type="hidden" name="update" defaultValue={update} />
-              <input type="hidden" name="avatarUrl" defaultValue={avatarUrl} />
+              <input
+                type="hidden"
+                name="avatarUrl"
+                defaultValue={avatarUrl || uploadedAvatar}
+              />
               <input
                 type="file"
                 name="avatar"

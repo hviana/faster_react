@@ -35,7 +35,8 @@ Focus solely on development! This framework handles:
   serverless environments by setting `framework => "serverless": true`.
 
 > **Note:** The project includes a simple application example demonstrating each
-> functionality.
+> functionality. The example uses Tailwind CSS, but this is optional. You can
+> use whatever CSS framework you want.
 
 ---
 
@@ -147,9 +148,6 @@ See **Deno KV** settings in `options.json`.
   the Web Streams API.
 
 More details: [deno_kv_fs](https://github.com/hviana/deno_kv_fs)
-
-> **Note:** The project includes a simple application example demonstrating each
-> functionality.
 
 ---
 
@@ -396,6 +394,48 @@ interface Route {
 >
   Fetch JSON Data
 </button>;
+```
+
+In the case of page routes, you can use this example to pass the URL parameters
+for the headers in the backend (if you really need it):
+
+```typescript
+const signupBackendComponent: BackendComponent = {
+  before: [
+    async (ctx: Context, next: NextFunc) => {
+      ctx.req = new Request(ctx.req, {
+        headers: {
+          ...Object.fromEntries(ctx.req.headers as any),
+          "Authorization": `Bearer token ${ctx.url.searchParams.get("token")}`,
+        },
+      });
+      await next();
+    },
+  ],
+};
+export default signupBackendComponent;
+```
+
+Forms submit for page routes work. For components, you can use the following:
+
+```tsx
+<form
+  method="POST"
+  action=""
+  encType="multipart/form-data"
+  onSubmit={async (event) => {
+      event.preventDefault();
+      const data: any = new FormData(event.target as any);
+      const formObject = Object.fromEntries(data.entries());
+      await route({
+        startLoad: () => setLoading(true), //useState
+        endLoad: () => setLoading(false),
+        path: "/components/register",
+        elSelector: "#dash-content",
+        content: formObject,
+      })();
+  }}
+>
 ```
 
 ---

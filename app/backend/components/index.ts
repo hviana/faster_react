@@ -1,12 +1,14 @@
 import { type BackendComponent } from "@helpers/backend/types.ts";
 import { type Context, type NextFunc } from "faster";
+
+await import("../files/initializations.ts");
+
 const indexBackendComponent: BackendComponent = {
   before: [
     async (ctx: Context, next: NextFunc) => {
       if (ctx.req.method !== "GET") {
         throw new Error("The home page only accepts the GET method");
       }
-      console.log("Call backendComponent.before middleware on index");
       await next(); //Calling await next(); is important to continue the flow of execution (or not, if you want to interrupt).
     },
   ],

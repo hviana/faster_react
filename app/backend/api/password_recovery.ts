@@ -5,7 +5,6 @@ const recoveryRoutes = async (server: Server) => {
   const oneMin: number = oneSecond * 60;
   const oneHour: number = oneMin * 60;
   const oneDay: number = oneHour * 24;
-  const host = "http://localhost:8000"; //example
 
   server.post(
     "/recovery",
@@ -39,6 +38,7 @@ const recoveryRoutes = async (server: Server) => {
         const random6Digits = Math.floor(100000 + Math.random() * 900000)
           .toString(); //random 6 digits
         user.password = await pbkdf2(random6Digits);
+        await Server.kv.set(["users", existingEmail], user);
         ctx.res.body = {
           success:
             `Your temporary password is ${random6Digits}, change it to a secure password as soon as possible.`,
