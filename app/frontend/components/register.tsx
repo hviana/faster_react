@@ -6,7 +6,7 @@ import Loading from "./parts/loading.tsx";
 
 import Counter from "./parts/counter.tsx";
 
-export default function Register(props: any) {
+const Register = (props: any) => {
   const {
     name,
     email,
@@ -15,16 +15,15 @@ export default function Register(props: any) {
     error,
     message,
     update,
-    updated,
     token,
   } = props;
-  const [uploadingAvatar, setUploadingAvatar] = useState(false);
-  const [uploadingAvatarError, setUploadingAvatarError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [frontendFomError, setFrontendFomError] = useState("");
   const [avatarUrl, setAvatarUrl] = useState("");
   const handleAvatarChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       try {
-        setUploadingAvatar(true);
+        setLoading(true);
         const form = new FormData();
         form.append(e.target.files[0].name, e.target.files[0]);
         const req = await fetch(`/avatars/${crypto.randomUUID()}`, {
@@ -35,30 +34,17 @@ export default function Register(props: any) {
         const fileKey = Object.keys(res)[0];
         if (res[fileKey].URIComponent) {
           setAvatarUrl(`/avatars/${res[fileKey].URIComponent}`);
-          setUploadingAvatarError("");
+          setFrontendFomError("");
         } else {
-          setUploadingAvatarError(res.msg);
+          setFrontendFomError(res.msg);
         }
-        setUploadingAvatar(false);
+        setLoading(false);
       } catch (e) {
-        setUploadingAvatar(false);
+        setLoading(false);
       }
     }
   };
-  if (updated) {
-    route({
-      path: "/pages/dashboard",
-      content: {
-        user: {
-          name: name,
-          email: email,
-          avatarUrl: avatarUrl || uploadedAvatar,
-        },
-        token: token,
-      },
-    })();
-    return;
-  } else if (message && !update) {
+  if (message && !update) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-green-500 to-teal-500">
         <script src="https://cdn.tailwindcss.com"></script>
@@ -99,10 +85,25 @@ export default function Register(props: any) {
             </h2>
           )}
           <form
-            id="register-form"
             method="POST"
             action="/pages/register"
             encType="multipart/form-data"
+            onSubmit={async (event) => {
+              if (!update) {
+                return;
+              } else {
+                event.preventDefault();
+                const data: any = new FormData(event.target as any);
+                const formObject = Object.fromEntries(data.entries());
+                await route({
+                  startLoad: () => setLoading(true),
+                  endLoad: () => setLoading(false),
+                  path: "/components/register",
+                  elSelector: "#dash-content",
+                  content: formObject,
+                })();
+              }
+            }}
           >
             <div className="mb-5">
               <label className="block text-gray-700 text-sm font-semibold mb-2">
@@ -150,17 +151,15 @@ export default function Register(props: any) {
               <input type="hidden" name="token" defaultValue={token} />
               <input type="hidden" name="update" defaultValue={update} />
               <input type="hidden" name="avatarUrl" defaultValue={avatarUrl} />
-              {uploadingAvatar ? Loading({ loading: true }) : (
-                <input
-                  type="file"
-                  name="avatar"
-                  accept="image/*"
-                  onChange={handleAvatarChange}
-                  className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4
+              <input
+                type="file"
+                name="avatar"
+                accept="image/*"
+                onChange={handleAvatarChange}
+                className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4
                   file:rounded-full file:border-0 file:text-sm file:font-semibold
                   file:bg-green-50 file:text-green-700 hover:file:bg-green-100"
-                />
-              )}
+              />
               {(avatarUrl || uploadedAvatar) && (
                 <img
                   src={avatarUrl || uploadedAvatar}
@@ -169,21 +168,12 @@ export default function Register(props: any) {
                 />
               )}
             </div>
-            {(error || uploadingAvatarError) &&
-              ErrorMessage({ message: error || uploadingAvatarError })}
+            {loading && Loading({ loading: true })}
+            {(error || frontendFomError) &&
+              ErrorMessage({ message: error || frontendFomError })}
             {update && (
               <button
                 type="submit"
-                onSubmit={async (event) => {
-                  event.preventDefault();
-                  const data: any = new FormData(event.target as any);
-                  const formObject = Object.fromEntries(data.entries());
-                  await route({
-                    path: "/components/register",
-                    "elSelector": "#dash-content",
-                    content: formObject,
-                  })();
-                }}
                 className="mt-1 w-full py-3 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-700 transition duration-300"
               >
                 Update
@@ -214,4 +204,5 @@ export default function Register(props: any) {
       </div>
     );
   }
-}
+};
+export default Register;

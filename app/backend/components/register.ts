@@ -25,7 +25,6 @@ const signupBackendComponent: BackendComponent = {
     }
 
     props.uploadedAvatar = avatarUrl || "";
-    props.updated = false;
     if (name && email) {
       const exists = (await Server.kv.get(["users", email])).value;
       if (update) {
@@ -33,16 +32,6 @@ const signupBackendComponent: BackendComponent = {
           password = exists.password;
         } else {
           password = await pbkdf2(password as string);
-          props.updated = true;
-        }
-        if (name != exists.name) {
-          props.updated = true;
-        }
-        if (avatarUrl != exists.avatarUrl) {
-          props.updated = true;
-        }
-        if (email != exists.email) {
-          props.updated = true;
         }
       } else {
         if (exists) {
