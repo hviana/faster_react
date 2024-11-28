@@ -10,17 +10,27 @@ const recoveryRoutes = async (server: Server) => {
     "/recovery",
     res("json"),
     async (ctx: any, next: any) => {
-      const recCode = crypto.randomUUID();
       const data = await ctx.req.json();
+      const recoveryTime = oneHour;
       const existingUser = (await Server.kv.get(["users", data.email])).value;
       if (existingUser) {
-        await Server.kv.set(["recovery_codes", recCode], data.email, {
-          expireIn: oneHour,
-        });
-        //TODO send recCode to email
-        console.log(`User ${data.email}, recovery code: ${recCode}`);
+        let alreadyRecoverSent = false;
+        if (existingUser.recoveryTimeStamp) {
+          if ((Date.now() - existingUser.recoveryTimeStamp) < recoveryTime) {
+            alreadyRecoverSent = true;
+          }
+        }
+        if (!alreadyRecoverSent) {
+          const recCode = crypto.randomUUID();
+          await Server.kv.set(["recovery_codes", recCode], data.email, {
+            expireIn: recoveryTime,
+          });
+          existingUser.recoveryTimeStamp = Date.now();
+          await Server.kv.set(["users", data.email], existingUser);
+          //TODO send recCode to email
+          console.log(`User ${data.email}, recovery code: ${recCode}`);
+        }
       }
-
       ctx.res.body = {
         success: `Check your email to receive the password recovery code.`,
       };
