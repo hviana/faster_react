@@ -1,6 +1,6 @@
 import { route } from "@helpers/frontend/route.ts";
 import ErrorMessage from "./parts/error.tsx";
-export default function Login(props: any) {
+const Login = (props: any) => {
   const { user, token, error } = props;
   if (user && token) {
     route({
@@ -69,4 +69,5 @@ export default function Login(props: any) {
       </div>
     </div>
   );
-}
+};
+export default Login;

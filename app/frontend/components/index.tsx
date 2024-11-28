@@ -1,5 +1,5 @@
 import { route } from "@helpers/frontend/route.ts";
-export default function Home() {
+const Home = () => {
   return (
     <div className="min-h-screen flex flex-col bg-white">
       <script src="https://cdn.tailwindcss.com"></script>
@@ -107,4 +107,5 @@ export default function Home() {
       </footer>
     </div>
   );
-}
+};
+export default Home;
