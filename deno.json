@@ -30,7 +30,7 @@
     "jose": "jsr:@hviana/faster@1.0.6/jose",
     "esbuild": "https://deno.land/x/esbuild@v0.24.0/mod.js",
     "esbuild-portable": "https://deno.land/x/esbuild@v0.24.0/wasm.js",
-    "esbuild-deno-loader": "jsr:@luca/esbuild-deno-loader@0.11.0",
+    "esbuild-deno-loader": "jsr:@luca/esbuild-deno-loader@0.11.1",
     "b64": "jsr:@std/encoding@1.0.5/base64"
   },
   "tasks": {
