@@ -273,7 +273,7 @@ Application CSS style files.
 - **Usage:**
 
 ```typescript
-//Before component
+//Can be used before component
 //detectedLang is the server language on the server side,
 //and the browser language on the client side.
 import {
