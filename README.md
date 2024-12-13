@@ -272,7 +272,7 @@ Application CSS style files.
 - **File Extensions:** Use `.json` files.
 - **Usage:**
 
-```typescript
+```jsx
 //Can be used before component
 //detectedLang is the server language on the server side,
 //and the browser language on the client side.
