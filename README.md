@@ -77,6 +77,7 @@ all other functionality is middleware.
   - [🖥️ Frontend Components](#%EF%B8%8F-frontend-components)
   - [🎨 Frontend CSS](#-frontend-css)
   - [📜 Frontend Files](#-frontend-files)
+  - [🌎 Translations](#-translations)
   - [🗂️ Static](#%EF%B8%8F-static)
 - [🧭 React Router](#-react-router)
 - [📦 Packages Included](#-packages-included)
