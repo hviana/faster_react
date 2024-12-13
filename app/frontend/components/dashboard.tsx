@@ -8,7 +8,6 @@ const Dashboard = (props: any) => {
     route({ path: "/pages/login" })();
     return;
   }
-
   return (
     <div className="min-h-screen bg-gray-100">
       <script src="https://cdn.tailwindcss.com"></script>

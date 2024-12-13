@@ -12,6 +12,6 @@ const importFromRoot = async (path: string, alias?: any) => {
 };
 const builder = new Builder(options, denoJson, importFromRoot);
 const server = builder.server;
-export { builder, options, server };
+export { options, server };
 
 export default { fetch: server.fetch };
