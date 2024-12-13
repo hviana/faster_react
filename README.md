@@ -263,6 +263,52 @@ Application CSS style files.
   like form field validations. Can have `frontend/files` common to other
   `frontend/files`.
 
+### 🌎 **Translations**
+
+- **Organization:** Put the translation file in a json in
+  `frontend/translations`. For example `frontend/translations/en.json`. The file
+  name must be the language abbreviation.
+- **File Extensions:** Use `.json` files.
+- **Usage:**
+
+```typescript
+//Before component
+//detectedLang is the server language on the server side,
+//and the browser language on the client side.
+import {
+  detectedLang,
+  useTranslation,
+} from "@helpers/frontend/translations.ts";
+const t = useTranslation({ lng: "en", ns: "index" });
+const Home = () => {
+  return <div className="app-name">{t("appName")}</div>;
+};
+export default Home;
+```
+
+In `frontend/translations/en.json`:
+
+```json
+{
+  "index": {
+    "appName": "My SaaS App"
+  }
+}
+```
+
+useTranslation options:
+
+```typescript
+interface useTranslationOptions {
+  lng?: string | string[];
+  ns?: string | string[];
+  keyPrefix?: string;
+}
+```
+
+The framework translation is just a wrapper over i18next. See the i18next
+documentation if you have questions.
+
 ---
 
 ### 🗂️ **Static**
@@ -449,8 +495,6 @@ are some examples of imports you can use without additional configuration:
 import {/* your imports */} from "react";
 import {/* your imports */} from "react/";
 import {/* your imports */} from "i18next";
-import {/* your imports */} from "reactI18next";
-import {/* your imports */} from "i18nextBrowserLanguagedetector";
 import {/* your imports */} from "react-dom";
 import {/* your imports */} from "react-dom/server";
 import {/* your imports */} from "react-dom/client";
