@@ -306,8 +306,6 @@ In `static/translations/en/index.json`:
 The framework translation is just a wrapper over i18next. See the i18next
 documentation if you have questions.
 
-> **Note:** Direct form submissions for page routes path also work.
-
 ---
 
 ## 🧭 **React Router**
