@@ -284,12 +284,12 @@ structure.
 In `frontend/components/index.tsx`:
 
 ```jsx
-//On the client side, the language is automatically detected (if you don't specify).
-//On the server, the language is "en" (if you don't specify).
 import { useTranslation } from "@helpers/frontend/translations.ts";
-const t = useTranslation({ ns: ["index"] }); //Any .init parameter of i18next is valid here.
-//Ex: useTranslation({ ns: ["index"], lng: "es", fallbackLng: "en" }), etc.
 const Home = () => {
+  const t = useTranslation({ ns: ["index"] }); //Any .init parameter of i18next is valid here.
+  //On the client side, the language is automatically detected (if you don't specify).
+  //On the server, the language is "en" (if you don't specify).
+  //Ex: useTranslation({ ns: ["index"], lng: ["es"], fallbackLng: "en" }), etc.
   return <div className="app-name">{t("appName")}</div>;
 };
 export default Home;
@@ -305,6 +305,8 @@ In `static/translations/en/index.json`:
 
 The framework translation is just a wrapper over i18next. See the i18next
 documentation if you have questions.
+
+> **Note:** Direct form submissions for page routes path also work.
 
 ---
 
