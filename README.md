@@ -77,8 +77,8 @@ all other functionality is middleware.
   - [🖥️ Frontend Components](#%EF%B8%8F-frontend-components)
   - [🎨 Frontend CSS](#-frontend-css)
   - [📜 Frontend Files](#-frontend-files)
-  - [🌎 Translations](#-translations)
   - [🗂️ Static](#%EF%B8%8F-static)
+  - [🌎 Translations](#-translations)
 - [🧭 React Router](#-react-router)
 - [📦 Packages Included](#-packages-included)
 - [🛠️ Creating a Project](#%EF%B8%8F-creating-a-project)
@@ -264,52 +264,6 @@ Application CSS style files.
   like form field validations. Can have `frontend/files` common to other
   `frontend/files`.
 
-### 🌎 **Translations**
-
-- **Organization:** Put the translation file in a json in
-  `frontend/translations`. For example `frontend/translations/en.json`. The file
-  name must be the language abbreviation.
-- **File Extensions:** Use `.json` files.
-- **Usage:**
-
-```jsx
-//Can be used before component
-//detectedLang is the server language on the server side,
-//and the browser language on the client side.
-import {
-  detectedLang,
-  useTranslation,
-} from "@helpers/frontend/translations.ts";
-const t = useTranslation({ lng: "en", ns: "index" });
-const Home = () => {
-  return <div className="app-name">{t("appName")}</div>;
-};
-export default Home;
-```
-
-In `frontend/translations/en.json`:
-
-```json
-{
-  "index": {
-    "appName": "My SaaS App"
-  }
-}
-```
-
-useTranslation options:
-
-```typescript
-interface useTranslationOptions {
-  lng?: string | string[];
-  ns?: string | string[];
-  keyPrefix?: string;
-}
-```
-
-The framework translation is just a wrapper over i18next. See the i18next
-documentation if you have questions.
-
 ---
 
 ### 🗂️ **Static**
@@ -318,6 +272,39 @@ Files served statically. Routes are generated based on the folder and file
 structure.
 
 - **Example:** `localhost:8080/static/favicon.ico` matches `static/favicon.ico`.
+
+### 🌎 **Translations**
+
+- **Organization:** Put the translation file in a json in `static/translations`.
+  For example `static/translations/en/index.json` It is relative to the
+  component in `frontend/components/index.tsx` for the `en` language.
+- **File Extensions:** Use `.json` files.
+- **Usage:**
+
+In `frontend/components/index.tsx`:
+
+```jsx
+//On the client side, the language is automatically detected (if you don't specify).
+//On the server, the language is "en" (if you don't specify).
+import { useTranslation } from "@helpers/frontend/translations.ts";
+const t = useTranslation({ ns: ["index"] }); //Any .init parameter of i18next is valid here.
+//Ex: useTranslation({ ns: ["index"], lng: "es", fallbackLng: "en" }), etc.
+const Home = () => {
+  return <div className="app-name">{t("appName")}</div>;
+};
+export default Home;
+```
+
+In `static/translations/en/index.json`:
+
+```json
+{
+  "appName": "My SaaS App"
+}
+```
+
+The framework translation is just a wrapper over i18next. See the i18next
+documentation if you have questions.
 
 ---
 
