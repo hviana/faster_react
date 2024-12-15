@@ -194,7 +194,7 @@ More details: [deno_kv_fs](https://github.com/hviana/deno_kv_fs)
   - **Before Processing (`before?: RouteFn[]`):** List of middleware functions
     (see: [faster](https://github.com/hviana/faster)). Use to check headers
     (`ctx.req.headers`) or search params (`ctx.url.searchParams`), like tokens,
-    impose rate limits, etc.
+    impose rate limits etc.
 
     > **Note:** To cancel page processing, do not call `await next()` at the end
     > of a middleware function.
@@ -276,8 +276,10 @@ structure.
 ### 🌎 **Translations**
 
 - **Organization:** Put the translation file in a json in `static/translations`.
-  For example `static/translations/en/index.json` It is relative to the
-  component in `frontend/components/index.tsx` for the `en` language.
+  For example `static/translations/en/general.json`. The i18next library
+  currently does not support nested namespaces. So don't use subdirectories. You
+  can, however, in the same file, use as many subkeys as you want
+  (`mykey1.mykey2` etc).
 - **File Extensions:** Use `.json` files.
 - **Usage:**
 
@@ -286,9 +288,9 @@ In `frontend/components/index.tsx`:
 ```jsx
 import { useTranslation } from "@helpers/frontend/translations.ts";
 const Home = () => {
-  const T = useTranslation({ ns: ["index"] });
+  const T = useTranslation({ ns: ["general"] });
   //Any .init parameter of i18next is valid in useTranslation.
-  //Ex: useTranslation({ ns: ["index"], lng: ["es"], fallbackLng: "en" }), etc.
+  //Ex: useTranslation({ ns: ["general"], lng: ["es"], fallbackLng: "en" }) etc.
   //On the client side, the language is automatically detected (if you don't specify).
   //On the server, the language is "en" (if you don't specify).
   return (
@@ -300,7 +302,7 @@ const Home = () => {
 export default Home;
 ```
 
-In `static/translations/en/index.json`:
+In `static/translations/en/general.json`:
 
 ```json
 {
@@ -535,7 +537,7 @@ deno task serve
 Production:
 
 ```bash
-deno serve main.ts #Add your permissions, port, certificate, etc. see: https://docs.deno.com/runtime/reference/cli/serve
+deno serve main.ts #Add your permissions, port, certificate etc. see: https://docs.deno.com/runtime/reference/cli/serve
 ```
 
 ---

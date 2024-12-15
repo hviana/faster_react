@@ -2,7 +2,7 @@ import { route } from "@helpers/frontend/route.ts";
 import { useTranslation } from "@helpers/frontend/translations.tsx";
 
 const Home = () => {
-  const T = useTranslation({ ns: ["index"] });
+  const T = useTranslation({ ns: ["general"] });
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-b from-white to-gray-50">
       <script src="https://cdn.tailwindcss.com"></script>
