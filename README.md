@@ -295,7 +295,7 @@ const Home = () => {
   //On the server, the language is "en" (if you don't specify).
   return (
     <div className="app-name">
-      <T text={"appName"} />
+      <T text={"appName"} endExample={"!"} />
     </div>
   );
 };
@@ -306,7 +306,7 @@ In `static/translations/en/general.json`:
 
 ```json
 {
-  "appName": "My SaaS App"
+  "appName": "My SaaS App {{endExample}}"
 }
 ```
 
