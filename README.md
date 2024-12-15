@@ -106,7 +106,7 @@ git ls-files | xargs wc -l
 git clone https://github.com/hviana/faster_react.git
 cd faster_react
 git ls-files | xargs wc -l
-# Output: 1037 (version 20.0)
+# Output: 1037 (version 20.1)
 ```
 
 ---
