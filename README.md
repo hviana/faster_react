@@ -106,7 +106,7 @@ git ls-files | xargs wc -l
 git clone https://github.com/hviana/faster_react.git
 cd faster_react
 git ls-files | xargs wc -l
-# Output: 1037 (version 17.6)
+# Output: 1037 (version 20.0)
 ```
 
 ---
@@ -286,7 +286,10 @@ structure.
 In `frontend/components/index.tsx`:
 
 ```jsx
-import { useTranslation } from "@helpers/frontend/translations.ts";
+import {
+  detectedLang,
+  useTranslation,
+} from "@helpers/frontend/translations.ts";
 const Home = () => {
   const T = useTranslation({ ns: ["general"] });
   //Any .init parameter of i18next is valid in useTranslation.
