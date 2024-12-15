@@ -1,5 +1,5 @@
 import { route } from "@helpers/frontend/route.ts";
-import { useTranslation } from "../../../faster_react_core/helpers/frontend/translations.tsx";
+import { useTranslation } from "@helpers/frontend/translations.tsx";
 
 const Home = () => {
   const T = useTranslation({ ns: ["index"] });
