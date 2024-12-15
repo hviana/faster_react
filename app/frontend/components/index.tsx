@@ -9,7 +9,7 @@ const Home = () => {
       {/* Navigation */}
       <nav className="flex items-center justify-between py-4 px-8 bg-white shadow-sm">
         <div className="text-xl font-bold text-gray-800">
-          <T text={"appName"} />
+          <T text={"appName"} endExample={"!"} />
         </div>
         <div>
           <a
