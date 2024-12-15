@@ -286,9 +286,8 @@ In `frontend/components/index.tsx`:
 ```jsx
 import { useTranslation } from "@helpers/frontend/translations.ts";
 const Home = () => {
-  const T = useTranslation({ ns: ["index"], interpolation: { escapeValue: false } });
+  const T = useTranslation({ ns: ["index"] });
   //Any .init parameter of i18next is valid in useTranslation.
-  //"interpolation" allows folders or files with spaces in the name to work.
   //Ex: useTranslation({ ns: ["index"], lng: ["es"], fallbackLng: "en" }), etc.
   //On the client side, the language is automatically detected (if you don't specify).
   //On the server, the language is "en" (if you don't specify).
