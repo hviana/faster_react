@@ -1,14 +1,15 @@
 import { route } from "@helpers/frontend/route.ts";
-import { useTranslation } from "@helpers/frontend/translations.ts";
-const t = useTranslation({ ns: ["index"] });
+import { useTranslation } from "../../../faster_react_core/helpers/frontend/translations.tsx";
+
 const Home = () => {
+  const T = useTranslation({ ns: ["index"] });
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-b from-white to-gray-50">
       <script src="https://cdn.tailwindcss.com"></script>
       {/* Navigation */}
       <nav className="flex items-center justify-between py-4 px-8 bg-white shadow-sm">
         <div className="text-xl font-bold text-gray-800">
-          {t("appName")}
+          <T text={"appName"} />
         </div>
         <div>
           <a

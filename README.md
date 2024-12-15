@@ -286,11 +286,16 @@ In `frontend/components/index.tsx`:
 ```jsx
 import { useTranslation } from "@helpers/frontend/translations.ts";
 const Home = () => {
-  const t = useTranslation({ ns: ["index"] }); //Any .init parameter of i18next is valid here.
+  const T = useTranslation({ ns: ["index"] });
+  //Any .init parameter of i18next is valid in useTranslation.
+  //Ex: useTranslation({ ns: ["index"], lng: ["es"], fallbackLng: "en" }), etc.
   //On the client side, the language is automatically detected (if you don't specify).
   //On the server, the language is "en" (if you don't specify).
-  //Ex: useTranslation({ ns: ["index"], lng: ["es"], fallbackLng: "en" }), etc.
-  return <div className="app-name">{t("appName")}</div>;
+  return (
+    <div className="app-name">
+      <T text={"appName"} />
+    </div>
+  );
 };
 export default Home;
 ```
