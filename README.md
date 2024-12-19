@@ -316,7 +316,9 @@ In `static/translations/en/general.json`:
 Printing directly:
 
 ```jsx
-<input placeholder={T({ text: "emailPlaceholder" })} />;
+import { renderToString } from "react-dom/server";
+//...
+<input placeholder={renderToString(T({ text: "emailPlaceholder" }))} />;
 ```
 
 The framework translation is just a wrapper over i18next. See the i18next
