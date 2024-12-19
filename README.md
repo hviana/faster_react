@@ -289,7 +289,7 @@ In `frontend/components/index.tsx`:
 import {
   detectedLang,
   useTranslation,
-} from "@helpers/frontend/translations.ts";
+} from "@helpers/frontend/translations.tsx";
 const Home = () => {
   const T = useTranslation({ ns: ["general"] });
   //Any .init parameter of i18next is valid in useTranslation.
