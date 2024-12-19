@@ -315,7 +315,7 @@ In `static/translations/en/general.json`:
 
 Printing directly:
 ```jsx
-<input placeholder={T({text:"emailPlaceholder"})}/>
+<input placeholder={T({ text: "emailPlaceholder" })} />
 ```
 
 The framework translation is just a wrapper over i18next. See the i18next
