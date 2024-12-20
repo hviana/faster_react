@@ -2,17 +2,17 @@ import { route } from "@helpers/frontend/route.ts";
 import {
   detectedLang,
   useTranslation,
-} from "@helpers/frontend/translations.tsx";
+} from "@helpers/frontend/translations.ts";
 
 const Home = () => {
-  const T = useTranslation({ ns: ["general"] });
+  const t = useTranslation();
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-b from-white to-gray-50">
       <script src="https://cdn.tailwindcss.com"></script>
       {/* Navigation */}
       <nav className="flex items-center justify-between py-4 px-8 bg-white shadow-sm">
         <div className="text-xl font-bold text-gray-800">
-          <T text={"appName"} endExample={"!"} />
+          {t("index.appName", { endExample: "!" })}
         </div>
         <div>
           <a

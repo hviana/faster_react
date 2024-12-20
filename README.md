@@ -77,8 +77,8 @@ all other functionality is middleware.
   - [🖥️ Frontend Components](#%EF%B8%8F-frontend-components)
   - [🎨 Frontend CSS](#-frontend-css)
   - [📜 Frontend Files](#-frontend-files)
+  - [🌎 Frontend Translations](#-frontend-translations)
   - [🗂️ Static](#%EF%B8%8F-static)
-  - [🌎 Translations](#-translations)
 - [🧭 React Router](#-react-router)
 - [📦 Packages Included](#-packages-included)
 - [🛠️ Creating a Project](#%EF%B8%8F-creating-a-project)
@@ -266,21 +266,15 @@ Application CSS style files.
 
 ---
 
-### 🗂️ **Static**
+### 🌎 **Frontend Translations**
 
-Files served statically. Routes are generated based on the folder and file
-structure.
-
-- **Example:** `localhost:8080/static/favicon.ico` matches `static/favicon.ico`.
-
-### 🌎 **Translations**
-
-- **Organization:** Put the translation file in a json in `static/translations`.
-  For example `static/translations/en/general.json`. The i18next library
-  currently does not support nested namespaces. So don't use subdirectories. You
-  can, however, in the same file, use as many subkeys as you want
-  (`mykey1.mykey2` etc).
 - **File Extensions:** Use `.json` files.
+- **Correspondence:** Each file should have the same folder structure and name
+  as the corresponding frontend component but with a `.json` extension.
+
+  - **Example:**
+    - Frontend: `frontend/components/checkout/cart.tsx`
+    - Backend: `frontend/translations/checkout/cart.json`
 - **Usage:**
 
 In `frontend/components/index.tsx`:
@@ -289,23 +283,24 @@ In `frontend/components/index.tsx`:
 import {
   detectedLang,
   useTranslation,
-} from "@helpers/frontend/translations.tsx";
+} from "@helpers/frontend/translations.ts";
 const Home = () => {
-  const T = useTranslation({ ns: ["general"] });
-  //Any .init parameter of i18next is valid in useTranslation.
-  //Ex: useTranslation({ ns: ["general"], lng: ["es"], fallbackLng: "en" }) etc.
+  const t = useTranslation();
+  //Any .init parameter of i18next (minus ns) is valid in useTranslation.
+  //Ex: useTranslation({ lng: ["es"], fallbackLng: "en" }) etc.
   //On the client side, the language is automatically detected (if you don't specify).
   //On the server, the language is "en" (if you don't specify).
+  //The "en" is also the default fallbackLng.
   return (
     <div className="app-name">
-      <T text={"appName"} endExample={"!"} />
+      {t("index.appName", { endExample: "!" })}
     </div>
   );
 };
 export default Home;
 ```
 
-In `static/translations/en/general.json`:
+In `frontend/translations/en/index.json`:
 
 ```json
 {
@@ -313,16 +308,17 @@ In `static/translations/en/general.json`:
 }
 ```
 
-Printing directly:
-
-```jsx
-import { renderToString } from "react-dom/server";
-//...
-<input placeholder={renderToString(T({ text: "emailPlaceholder" }))} />;
-```
-
 The framework translation is just a wrapper over i18next. See the i18next
 documentation if you have questions.
+
+---
+
+### 🗂️ **Static**
+
+Files served statically. Routes are generated based on the folder and file
+structure.
+
+- **Example:** `localhost:8080/static/favicon.ico` matches `static/favicon.ico`.
 
 ---
 
@@ -505,18 +501,13 @@ import {/* your imports */} from "react-dom";
 import {/* your imports */} from "react-dom/server";
 import {/* your imports */} from "react-dom/client";
 import {/* your imports */} from "react/jsx-runtime";
-import {/* your imports */} from "render";
-import {/* your imports */} from "htm/react";
+s;
 import {/* your imports */} from "@helpers/frontend/route.ts";
+import {/* your imports */} from "@helpers/frontend/translations.ts";
 import {/* your imports */} from "@helpers/backend/types.ts";
-
-// **About Faster:**
-// Faster is an optimized middleware server with an incredibly small codebase (~300 lines), built on top of Deno's native HTTP APIs with no dependencies. It includes useful middlewares: log file, serve static, CORS, session, rate limit, token, body parsers, redirect, proxy, and handle upload. Fully compatible with Deno Deploy. Examples are available in the README. Faster's ideology: all you need is an optimized middleware manager; all other functionality is middleware. See more at: https://deno.land/x/faster
-
 import {/* your imports */} from "faster";
 import {/* your imports */} from "deno_kv_fs";
 import {/* your imports */} from "jose"; //manage tokens
-
 import { options, server } from "@core"; // Useful for accessing the server instance.
 ```
 
