@@ -274,7 +274,8 @@ Application CSS style files.
 
   - **Example:**
     - Frontend: `frontend/components/checkout/cart.tsx`
-    - Backend: `frontend/translations/checkout/cart.json`
+    - Backend: `frontend/translations/en/checkout/cart.json`
+    > **Note:** Change **en** to your language.
 - **Usage:**
 
 In `frontend/components/index.tsx`:
