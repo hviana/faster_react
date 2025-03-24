@@ -25,8 +25,8 @@
     "faster": "jsr:@hviana/faster@1.1.0",
     "deno_kv_fs": "jsr:@hviana/faster@1.1.0/deno-kv-fs",
     "jose": "jsr:@hviana/faster@1.1.0/jose",
-    "esbuild": "https://deno.land/x/esbuild@v0.25.0/mod.js",
-    "esbuild-portable": "https://deno.land/x/esbuild@v0.25.0/wasm.js",
+    "esbuild": "https://deno.land/x/esbuild@v0.25.1/mod.js",
+    "esbuild-portable": "https://deno.land/x/esbuild@v0.25.1/wasm.js",
     "esbuild-deno-loader": "jsr:@luca/esbuild-deno-loader@0.11.1",
     "b64": "jsr:@std/encoding@1.0.7/base64"
   },
