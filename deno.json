@@ -14,6 +14,8 @@
     "@core": "./main.ts",
     "react": "npm:react@19.1.0",
     "react/": "npm:react@19.1.0/",
+    "@types/react": "npm:@types/react@19.1.0",
+    "@types/react-dom": "npm:@types/react-dom@19.1.0",
     "node:process": "https://esm.sh/v135/node_process.js",
     "i18next": "https://deno.land/x/i18next/index.js",
     "react-dom": "npm:react-dom@19.1.0",
