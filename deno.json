@@ -9,8 +9,8 @@
   },
   "lock": false,
   "imports": {
-    "builder": "https://deno.land/x/faster_react_core@v5.9/builder.ts",
-    "@helpers/": "https://deno.land/x/faster_react_core@v5.9/helpers/",
+    "builder": "https://deno.land/x/faster_react_core@v6.0/builder.ts",
+    "@helpers/": "https://deno.land/x/faster_react_core@v6.0/helpers/",
     "@core": "./main.ts",
     "react": "npm:react@19.1.0",
     "react/": "npm:react@19.1.0/",
