@@ -349,6 +349,7 @@ interface Route {
   disableSSR?: boolean; //For component routes. Disables SSR; defaults to false.
   elSelector?: string; // Required for component routes.
   method?: string; // Only for API routes. Optional; defaults to GET or POST.
+  useDebounce?: number; //for debounce functionality
 }
 ```
 
