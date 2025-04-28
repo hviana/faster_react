@@ -1,104 +1,87 @@
-/**
- * Returns PBKDF2 derived key from supplied password.
- *
- * Stored key can subsequently be used to verify that a password matches the original password used
- * to derive the key, using pbkdf2Verify().
- *
- * @param   {String} password - Password to be hashed using key derivation function.
- * @param   {Number} [iterations=1e6] - Number of iterations of HMAC function to apply.
- * @returns {String} Derived key as base64 string.
- *
- * @example
- *   const key = await pbkdf2('pāşšŵōřđ'); // eg 'djAxBRKXWNWPyXgpKWHld8SWJA9CQFmLyMbNet7Rle5RLKJAkBCllLfM6tPFa7bAis0lSTiB'
- */
-const pbkdf2 = async (password: string, iterations: number = 1e6) => {
-  const pwUtf8 = new TextEncoder().encode(password); // encode pw as UTF-8
-  const pwKey = await crypto.subtle.importKey("raw", pwUtf8, "PBKDF2", false, [
-    "deriveBits",
-  ]); // create pw key
-
-  const saltUint8 = crypto.getRandomValues(new Uint8Array(16)); // get random salt
-
-  const params = {
-    name: "PBKDF2",
-    hash: "SHA-256",
-    salt: saltUint8,
-    iterations: iterations,
-  }; // pbkdf2 params
-  const keyBuffer = await crypto.subtle.deriveBits(params, pwKey, 256); // derive key
-
-  const keyArray = Array.from(new Uint8Array(keyBuffer)); // key as byte array
-
-  const saltArray = Array.from(new Uint8Array(saltUint8)); // salt as byte array
-
-  const iterHex = ("000000" + iterations.toString(16)).slice(-6);
-  //@ts-ignore                               // iter’n count as hex
-  const iterArray = iterHex.match(/.{2}/g).map((byte) => parseInt(byte, 16)); // iter’ns as byte array
-  //@ts-ignore
-  const compositeArray = [].concat(saltArray, iterArray, keyArray); // combined array
-  const compositeStr = compositeArray.map((byte) => String.fromCharCode(byte))
-    .join(""); // combined as string
-  const compositeBase64 = btoa("v01" + compositeStr); // encode as base64
-
-  return compositeBase64; // return composite key
-};
+const ITERATIONS = 10_000;
+const HASH = "SHA-512";
+const SALT_BYTE_LEN = 16; // 16 bytes = 128 bits
+const KEY_BYTE_LEN = 64; // 64 bytes = 512 bits
+const DERIVE_BITS = KEY_BYTE_LEN * 8; // in bits
 
 /**
- * Verifies whether the supplied password matches the password previously used to generate the key.
- *
- * @param   {String}  key - Key previously generated with pbkdf2().
- * @param   {String}  password - Password to be matched against previously derived key.
- * @returns {boolean} Whether password matches key.
- *
- * @example
- *   const match = await pbkdf2Verify(key, 'pāşšŵōřđ'); // true
+ * Convert an ArrayBuffer (or Uint8Array) to hex.
  */
-const pbkdf2Verify = async (key: string, password: string) => {
-  let compositeStr = null; // composite key is salt, iteration count, and derived key
-  try {
-    compositeStr = atob(key);
-  } catch (e: any) {
-    throw new Error("Invalid key");
-  } // decode from base64
+function toHex(buffer: ArrayBuffer | Uint8Array): string {
+  const bytes = buffer instanceof Uint8Array ? buffer : new Uint8Array(buffer);
+  return Array.from(bytes)
+    .map((b) => b.toString(16).padStart(2, "0"))
+    .join("");
+}
 
-  const version = compositeStr.slice(0, 3); //  3 bytes
-  const saltStr = compositeStr.slice(3, 19); // 16 bytes (128 bits)
-  const iterStr = compositeStr.slice(19, 22); //  3 bytes
-  const keyStr = compositeStr.slice(22, 54); // 32 bytes (256 bits)
+/**
+ * Convert a hex string to a Uint8Array.
+ */
+function fromHex(hex: string): Uint8Array {
+  const bytes = hex.match(/.{1,2}/g);
+  if (!bytes) throw new Error("Invalid hex string");
+  return new Uint8Array(bytes.map((b) => parseInt(b, 16)));
+}
 
-  if (version != "v01") throw new Error("Invalid key");
+/**
+ * Derive a key buffer from password+salt.
+ */
+async function derive(
+  password: string,
+  salt: Uint8Array,
+): Promise<ArrayBuffer> {
+  const pwUtf8 = new TextEncoder().encode(password);
+  const baseKey = await crypto.subtle.importKey(
+    "raw",
+    pwUtf8,
+    "PBKDF2",
+    false,
+    ["deriveBits"],
+  );
+  return await crypto.subtle.deriveBits(
+    {
+      name: "PBKDF2",
+      hash: HASH,
+      salt,
+      iterations: ITERATIONS,
+    },
+    baseKey,
+    DERIVE_BITS,
+  );
+}
 
-  // -- recover salt & iterations from stored (composite) key
+/**
+ * Generate a salted PBKDF2 hash. Returns "saltHex:hashHex".
+ */
+async function pbkdf2(password: string): Promise<string> {
+  // 1. Generate random salt
+  const salt = crypto.getRandomValues(new Uint8Array(SALT_BYTE_LEN));
+  // 2. Derive the key bytes
+  const derived = await derive(password, salt);
+  // 3. Return combined hex
+  return `${toHex(salt)}:${toHex(derived)}`;
+}
 
-  //@ts-ignore
-  const saltUint8 = new Uint8Array(
-    saltStr.match(/./g).map((ch) => ch.charCodeAt(0)),
-  ); // salt as Uint8Array
-  // note: cannot use TextEncoder().encode(saltStr) as it generates UTF-8
+/**
+ * Verify a password against a stored "saltHex:hashHex".
+ */
+async function pbkdf2Verify(
+  stored: string,
+  password: string,
+): Promise<boolean> {
+  const [saltHex, hashHex] = stored.split(":");
+  if (!saltHex || !hashHex) return false;
 
-  //@ts-ignore
-  const iterHex = iterStr.match(/./g).map((ch) => ch.charCodeAt(0).toString(16))
-    .join(""); // iter’n count as hex
-  const iterations = parseInt(iterHex, 16); // iter’ns
+  const salt = fromHex(saltHex);
+  const derived = await derive(password, salt);
+  const derivedHex = toHex(derived);
 
-  // -- generate new key from stored salt & iterations and supplied password
-
-  const pwUtf8 = new TextEncoder().encode(password); // encode pw as UTF-8
-  const pwKey = await crypto.subtle.importKey("raw", pwUtf8, "PBKDF2", false, [
-    "deriveBits",
-  ]); // create pw key
-
-  const params = {
-    name: "PBKDF2",
-    hash: "SHA-256",
-    salt: saltUint8,
-    iterations: iterations,
-  }; // pbkdf params
-  const keyBuffer = await crypto.subtle.deriveBits(params, pwKey, 256); // derive key
-  const keyArray = Array.from(new Uint8Array(keyBuffer)); // key as byte array
-  const keyStrNew = keyArray.map((byte) => String.fromCharCode(byte)).join(""); // key as string
-
-  return keyStrNew == keyStr; // test if newly generated key matches stored key
-};
-
+  // Constant-time compare
+  if (derivedHex.length !== hashHex.length) return false;
+  let diff = 0;
+  for (let i = 0; i < hashHex.length; i++) {
+    diff |= derivedHex.charCodeAt(i) ^ hashHex.charCodeAt(i);
+  }
+  return diff === 0;
+}
 export { pbkdf2, pbkdf2Verify };
