@@ -12,6 +12,12 @@ const importFromRoot = async (path: string, alias?: any) => {
 };
 const builder = new Builder(options, denoJson, importFromRoot);
 const server = builder.server;
+
+addEventListener("unhandledrejection", (event) => {
+  console.error("🛑 Unhandled Rejection:", event.reason);
+  event.preventDefault();
+});
+
 export { options, server };
 
 export default { fetch: server.fetch };
