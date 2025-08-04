@@ -18,7 +18,6 @@
     "@types/react": "npm:@types/react@19.1.1",
     "@types/react/": "npm:@types/react@19.1.1/",
     "@types/react-dom": "npm:@types/react-dom@19.1.1",
-    "node:process": "https://esm.sh/v135/node_process.js",
     "i18next": "https://deno.land/x/i18next/index.js",
     "react-dom": "npm:react-dom@19.1.1",
     "react-dom/server": "npm:react-dom@19.1.1/server",
