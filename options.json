@@ -4,7 +4,7 @@
       "pathOrUrl": "",
       "DENO_KV_ACCESS_TOKEN": ""
     },
-    "dev": true,
+    "dev": false,
     "serverless": false,
     "title": "SaaS Example"
   }

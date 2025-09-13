@@ -8,10 +8,11 @@
     "jsxImportSource": "react",
     "jsxImportSourceTypes": "npm:@types/react@19.1.1"
   },
+  "unstable": ["cron", "kv", "bundle"],
   "lock": false,
   "imports": {
-    "builder": "https://deno.land/x/faster_react_core@v6.5/builder.ts",
-    "@helpers/": "https://deno.land/x/faster_react_core@v6.5/helpers/",
+    "builder": "https://deno.land/x/faster_react_core@v6.6/builder.ts",
+    "@helpers/": "https://deno.land/x/faster_react_core@v6.6/helpers/",
     "@core": "./main.ts",
     "react": "npm:react@19.1.1",
     "react/": "npm:react@19.1.1/",
@@ -25,13 +26,10 @@
     "react/jsx-runtime": "npm:react@19.1.1/jsx-runtime",
     "react/jsx-dev-runtime": "npm:react@19.1.1/jsx-dev-runtime",
     "walk": "jsr:@std/fs@1.0.19/walk",
-    "path": "jsr:@std/path@1.1.1",
+    "path": "jsr:@std/path@1.1.2",
     "faster": "jsr:@hviana/faster@1.1.2",
     "deno_kv_fs": "jsr:@hviana/faster@1.1.2/deno-kv-fs",
     "jose": "jsr:@hviana/faster@1.1.2/jose",
-    "esbuild": "https://deno.land/x/esbuild@v0.25.9/mod.js",
-    "esbuild-portable": "https://deno.land/x/esbuild@v0.25.9/wasm.js",
-    "esbuild-deno-loader": "jsr:@luca/esbuild-deno-loader@0.11.1",
     "b64": "jsr:@std/encoding@1.0.10/base64"
   },
   "tasks": {
