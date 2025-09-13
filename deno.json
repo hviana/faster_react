@@ -11,8 +11,8 @@
   "unstable": ["cron", "kv", "bundle"],
   "lock": false,
   "imports": {
-    "builder": "https://deno.land/x/faster_react_core@v6.6/builder.ts",
-    "@helpers/": "https://deno.land/x/faster_react_core@v6.6/helpers/",
+    "builder": "https://deno.land/x/faster_react_core@v6.7/builder.ts",
+    "@helpers/": "https://deno.land/x/faster_react_core@v6.7/helpers/",
     "@core": "./main.ts",
     "react": "npm:react@19.1.1",
     "react/": "npm:react@19.1.1/",
