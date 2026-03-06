@@ -8,6 +8,8 @@
 > [!IMPORTANT]\
 > **Please give a star!** ⭐
 
+> ## ⚠️🚨 Please note: Serverless functionality is temporarily unavailable due to recent changes to the Deno.bundle API. This will be fixed as soon as the Deno API allows it. 🚨⚠️
+
 ---
 
 ## 🌟 Introduction
